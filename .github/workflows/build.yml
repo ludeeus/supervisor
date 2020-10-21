@@ -12,4 +12,23 @@ jobs:
     - name: Test build
       uses: ludeeus/hassio-builder@action
       with:
-        args: --test --all -t /data --generic ${{ github.sha }}
+        args: |
+          --test \
+          --all \
+          --target /data \
+          --generic ${{ github.sha }} \
+          --docker-hub ludeeus
+  publish:
+    name: Publish supervisor
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+    - name: Publish supervisor
+      uses: ludeeus/hassio-builder@action
+      with:
+        args: |
+          --amd64 \
+          --target /data \
+          --generic ${{ github.sha }} \
+          --docker-hub ludeeus

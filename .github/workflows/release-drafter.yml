@@ -12,12 +12,13 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Find Next Version
         id: version
         run: |
           declare -i newpost
-          git rev-list --tags
           latest=$(git describe --tags $(git rev-list --tags --max-count=1))
           latest="2020.11.12"
           latestpre=$(echo "$latest" | awk '{split($0,a,"."); print a[1] "." a[2]}')
